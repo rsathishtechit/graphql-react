@@ -1,11 +1,15 @@
-import { GraphQLString, GraphQLInt } from '../../../Library/Caches/typescript/2.6/node_modules/@types/graphql/type/scalars';
-
 const graphql = require('graphql');
+const _ = require('lodash');
 const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLInt
 } = graphql;
+
+const users = [
+    {id: '23', firstName: "sathish", age: 28},
+    {id: '47', firstName: 'makesh', age: 32},
+]
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -23,7 +27,7 @@ const RootQuery= new GraphQLObjectType({
             type: UserType,
             args: { id: { type: GraphQLString } },
             resolve(parentValue, args) {
-                
+                return _.find(users, { id: args.id });
             }
         }
     }
